@@ -32,11 +32,13 @@ gamma = math.radians(20)
 # F5_x - F3_x - F7_x = 0
 # F5_y - F3_y - F7_y = 0
 
-F5  = (F7_x + (F7_y * math.sin(gamma) * math.cos(beta) ) ) / (math.cos(alpha) + math.sin(gamma)**2 * math.cos(beta))
+F5  = (( (F7_y * math.cos(beta)) + F7_x * math.sin(beta) )  / ((math.sin(beta)) + math.sin(gamma) * math.cos(beta)))/math.cos(gamma)
 F3 = (F5 * math.cos(gamma) - F7_x) / math.cos(beta)
 
 # Force on Stick (main)
 theta = math.radians(20)
+theta_1 = theta + math.radians(20)
+theta_2 = math.radians(10)
 length_c = math.sqrt( 1500**2 / (1+ (math.tan(theta))**2)) #horizontal 
 length_d = math.tan(theta) * length_c #horizontal 
 length_e = 200 #horizontal 
@@ -45,16 +47,16 @@ length_g = 450
 length_h = 1300
 weight_stick = 3000 #kN
 # Sum of Force x & y
-# F6_x  - F3_x - F2_x + F1_x + F5_x = 0
-# -F6_y + F3_y -F2_y + F1_y - F5_y = 0 
+# F6_x  - F3_x - F2_x - F1_x - F5_x = 0
+# F6_y + F3_y -F2_y - F1_y - F5_y = 0 
 
 # Torque of arm (antiClockWise)
-# F6_x * length c + F3_y * length_e - F6_y * length_d - weight_stick * cos(delta) * length_f - length_g * F1 - length_h * F5_y= 0
-F1 = ( F6_x * length_c + F3* math.sin(beta) * length_e + F6_y * length_d - weight_stick * math.cos(theta) * length_f - length_h * F5 * math.sin(gamma)) / length_g
-
-F2_x = F1 * math.sin(theta) + F5 * math.cos(gamma) - F6_x + F3 * math.cos(40)
-F2_y =  -(F1 * math.cos(theta) - F5 * math.cos(gamma)  + F6_y  - F3 * math.cos(40))
-
+# -F6_y * length c + F3_y * length_e + F6_x * length_d - weight_stick * cos(delta) * length_f - length_g * cos(theta_1) * F1_y - length_g * sin(theta_1) * F1_x- length_h*cos(theta) * F5_y -length_h*sin(theta) * F5_x= 0
+F1 = ( F6_y * length_c + F3* math.sin(beta) * length_e + F6_x * length_d - weight_stick * math.cos(theta) * length_f - length_h*math.cos(theta) * F5 * math.sin(gamma)- length_h*math.sin(theta) * F5 * math.cos(gamma)) / (length_g* (math.cos(theta_1)*math.sin(theta_2) + math.cos(theta_2)*math.sin(theta_1)))
+F1 = -F1
+F2_x = -F1 * math.cos(theta_2) - F5 * math.cos(gamma) + F6_x - F3 * math.cos(beta)
+F2_y =  -F1 * math.sin(theta_2) - F5 * math.sin(gamma)  + F6_y  + F3 * math.sin(beta)
+F2_x , F2_y = -(F2_x) , -(F2_y)
 
 
 pprint.pprint ( [ f'F7_x_y:, {math.ceil(F7_x)}, {math.ceil(F7_y)}'
