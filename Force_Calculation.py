@@ -9,19 +9,19 @@ length_b = 100 #horizontal
 
 
 
-# Torque on Bucket pivot at pinMain
-# length_a * weightOfBucket + length_b * pin1_y = 0
-pin1_y =  (weightOfBucket * length_a ) / length_b
-pin1 = pin1_y / math.sin(alpha)
+# Torque on Bucket pivot at F6
+# length_a * weightOfBucket + length_b * F7_y = 0
+F7_y =  (weightOfBucket * length_a ) / length_b
+F7 = F7_y / math.sin(alpha)
 
 # Sum of Force y
-# pin1_y + pinMain_y - weightOfBucket = 0
-pinMain_y = -(weightOfBucket - pin1_y)
+# F7_y + F6_y - weightOfBucket = 0
+F6_y = -(weightOfBucket - F7_y)
 
 # Sum of Force x
-# pin1_x - pinMain_x = 0
-pin1_x = math.cos(alpha) *pin1 # making force variable possible 
-pinMain_x = pin1_x
+# F7_x - F6_x = 0
+F7_x = math.cos(alpha) *F7 # making force variable possible 
+F6_x = F7_x
 
 # Force on Linkage between Piston and bucket
 
@@ -29,11 +29,11 @@ beta = math.radians(20)
 gamma = math.radians(20)
 
 # Sum of Force x & y
-# Force_L_x - Force_piston_x - pin1_x = 0
-# Force_L_y - Force_piston_y - pin1_y = 0
+# F5_x - F3_x - F7_x = 0
+# F5_y - F3_y - F7_y = 0
 
-Force_L  = (pin1_x + (pin1_y * math.sin(gamma) * math.cos(beta) ) ) / (math.cos(alpha) + math.sin(gamma)**2 * math.cos(beta))
-Force_piston = (Force_L * math.cos(gamma) - pin1_x) / math.cos(beta)
+F5  = (F7_x + (F7_y * math.sin(gamma) * math.cos(beta) ) ) / (math.cos(alpha) + math.sin(gamma)**2 * math.cos(beta))
+F3 = (F5 * math.cos(gamma) - F7_x) / math.cos(beta)
 
 # Force on Stick (main)
 theta = math.radians(20)
@@ -45,24 +45,24 @@ length_g = 450
 length_h = 1300
 weight_stick = 3000 #kN
 # Sum of Force x & y
-# pinMain_x  - Force_piston_x - pinArm_x + Force_pistonArm_x + Force_L_x = 0
-# -pinMain_y + Force_piston_y -pinArm_y + Force_pistonArm_y - Force_L_y = 0 
+# F6_x  - F3_x - F2_x + F1_x + F5_x = 0
+# -F6_y + F3_y -F2_y + F1_y - F5_y = 0 
 
 # Torque of arm (antiClockWise)
-# pinMain_x * length c + Force_piston_y * length_e - pinMain_y * length_d - weight_stick * cos(delta) * length_f - length_g * Force_pistonArm - length_h * Force_L_y= 0
-Force_pistonArm = ( pinMain_x * length_c + Force_piston* math.sin(beta) * length_e + pinMain_y * length_d - weight_stick * math.cos(theta) * length_f - length_h * Force_L * math.sin(gamma)) / length_g
+# F6_x * length c + F3_y * length_e - F6_y * length_d - weight_stick * cos(delta) * length_f - length_g * F1 - length_h * F5_y= 0
+F1 = ( F6_x * length_c + F3* math.sin(beta) * length_e + F6_y * length_d - weight_stick * math.cos(theta) * length_f - length_h * F5 * math.sin(gamma)) / length_g
 
-pinArm_x = Force_pistonArm * math.sin(theta) + Force_L * math.cos(gamma) - pinMain_x + Force_piston * math.cos(40)
-pinArm_y =  -(Force_pistonArm * math.cos(theta) - Force_L * math.cos(gamma)  + pinMain_y  - Force_piston * math.cos(40))
+F2_x = F1 * math.sin(theta) + F5 * math.cos(gamma) - F6_x + F3 * math.cos(40)
+F2_y =  -(F1 * math.cos(theta) - F5 * math.cos(gamma)  + F6_y  - F3 * math.cos(40))
 
 
 
-pprint.pprint ( [ f'pin1_x_y:, {math.ceil(pin1_x)}, {math.ceil(pin1_y)}'
-, f'pinMain_x_y: , {math.ceil(pinMain_x)}, {math.ceil(pinMain_y)}',
-f'Force_L:  {math.ceil(Force_L)}',
-f'Force_piston:  {math.ceil(Force_piston)}',
-f"Force_pistonArm: {math.ceil(Force_pistonArm)}",
-f"pinArm_x_y:  {math.ceil(pinArm_x)}, {math.ceil(pinArm_y)}" ])
+pprint.pprint ( [ f'F7_x_y:, {math.ceil(F7_x)}, {math.ceil(F7_y)}'
+, f'F6_x_y: , {math.ceil(F6_x)}, {math.ceil(F6_y)}',
+f'F5:  {math.ceil(F5)}',
+f'F3:  {math.ceil(F3)}',
+f"F1: {math.ceil(F1)}",
+f"F2_x_y:  {math.ceil(F2_x)}, {math.ceil(F2_y)}" ])
 
 
 
