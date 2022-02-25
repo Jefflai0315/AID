@@ -30,6 +30,10 @@ gamma = math.radians(20)
 # Forces / tensions on joint 5
 F5 = -(F7_x  + F7_y*math.cos(beta)) / (math.sin(gamma)*math.cos(beta)-math.cos(beta))
 F3 = (F5 * math.cos(gamma) - F7_x) / math.cos(beta)
+F3_x = F3* math.cos(beta) 
+F3_y = F3*math.sin(beta)
+F5_y = F5 * math.sin(gamma)
+F5_x = F5 * math.cos(gamma)
 
 
 ##----------------------------------------------------------------##
@@ -38,20 +42,20 @@ F3 = (F5 * math.cos(gamma) - F7_x) / math.cos(beta)
 theta = math.radians(25)
 theta_1 = theta + math.radians(31.7)
 theta_2 = math.radians(15)
-length_c = math.sqrt( 1533**2 / (1+ (math.tan(theta))**2)) #horizontal 
-length_d = math.tan(theta) * length_c #horizontal 
-length_e = math.sin( math.radians(11.95+20))* 331 #horizontal 
+length_c = math.cos(theta)*1533 #horizontal 
+length_d = math.sin(theta)*1533 #horizontal 
+length_e = math.cos( math.radians(11.955 )+theta)* 331 #horizontal 
 length_f = 350
 length_g = 429
 length_h = 1320
 weight_stick = 1550 #kN
 
 # Torque pivot at 2 (antiClockWise)
-F1 = ( -F6_y * length_c +  F3* math.cos(beta) * math.sqrt(331**2 + length_e**2)+  F3* math.sin(beta) * length_e + F6_x * length_d - weight_stick * math.cos(theta) * length_f + length_h*math.cos(theta) * F5 * math.sin(gamma)+ length_h*math.sin(theta) * F5 * math.cos(gamma)) / (length_g* (math.cos(theta_1)*math.sin(theta_2) + math.cos(theta_2)*math.sin(theta_1)))
+F1 = ( -F6_y * length_c  -F3_x * math.sqrt(331**2 - length_e**2)+  F3_y * length_e  -F6_x * length_d - weight_stick * math.cos(theta) * length_f + length_h*math.cos(theta) * F5_y + length_h*math.sin(theta) * F5_x) / -(length_g* (math.cos(theta_1)*math.sin(theta_2) + math.cos(theta_2)*math.sin(theta_1)))
 # Sum of Force x
-F2_x = (F1 * math.cos(theta_2) + F5 * math.cos(gamma) + F6_x - F3 * math.cos(beta))
+F2_x = (-F1 * math.cos(theta_2) + F5_x - F6_x - F3_x)
 # Sum of Force y 
-F2_y =  F1 * math.sin(theta_2) + F5 * math.sin(gamma)  - F6_y  + F3 * math.sin(beta) - weightOfBucket
+F2_y =  -F1 * math.sin(theta_2) + F5_y  - F6_y  + F3 * math.sin(beta) - weightOfBucket
 
 
 ##----------------------------------------------------------------##
