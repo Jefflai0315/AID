@@ -48,7 +48,7 @@ length_e = math.cos( math.radians(11.955 )+theta)* 331 #horizontal
 length_f = 350
 length_g = 429
 length_h = 1320
-weight_stick = 1550 #kN
+weight_stick = 3000 #kN
 
 # Torque pivot at 2 (antiClockWise)
 F1 = ( -F6_y * length_c  -F3_x * math.sqrt(331**2 - length_e**2)+  F3_y * length_e  -F6_x * length_d - weight_stick * math.cos(theta) * length_f + length_h*math.cos(theta) * F5_y + length_h*math.sin(theta) * F5_x) / -(length_g* (math.cos(theta_1)*math.sin(theta_2) + math.cos(theta_2)*math.sin(theta_1)))
