@@ -2,9 +2,15 @@ import math
 import pprint
 
 
+# Principles:
+# Sum of Force along x = 0
+# Sum of Forces along y = 0
+# Sum of clockwise moment = 0
+
+
 # 1. Calculation for forces on bucket
 # Variables 
-Fgb = 150                            #weight of bucket
+Fgb = 150                             #weight of bucket
 lgb = 200                             #horizontal length from pin6 to CG of bucket
 l7 = 100                              #horizontal length from pin6 to pin7
 beta7 = math.radians(60)
