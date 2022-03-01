@@ -11,7 +11,7 @@ import pprint
 # 1. Calculation for forces on bucket
 # Variables 
 ##_____________________New Line for Max Breakout Force___________________##
-Fb = 7000                           #breakout force
+Fb = 39000                         #breakout force
 alpha = math.radians(35)
 F8x = Fb * math.cos(alpha)
 F8y = Fb * math.sin(alpha)
