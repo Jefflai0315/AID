@@ -1,4 +1,4 @@
-![Our generetive design solution.](https://assets.digitalocean.com/articles/alligator/boo.svg "Dripper 2.0")
+![Our generetive design solution.](assets\images\second_render_crop.png "Dripper 2.0")
 
 
 # Hello Power Group
