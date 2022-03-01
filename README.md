@@ -1,4 +1,4 @@
-![Our generetive design solution.](assets\images\second_render_crop.png "Dripper 2.0")
+![Our generetive design solution.](https://github.com/Jefflai0315/AID/blob/main/assets/images/second_render_crop.png "Dripper 2.0")
 
 
 # Hello Power Group
